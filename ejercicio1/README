@@ -1,0 +1,107 @@
+# Ejercicio 1 — Validador de Tarjetas (Algoritmo de Luhn)
+
+**Módulo:** Fundamentos de C# y .NET
+**Entrega:** Domingo de la semana 1, 11:59 PM
+**Temas cubiertos:** Strings, char, ciclos, condicionales, métodos, operadores, arrays, manejo de errores
+
+## Enunciado
+
+Desarrollar una **aplicación de consola** que implemente el **algoritmo de Luhn** para validar números de tarjeta de crédito/débito, además de identificar la marca de la tarjeta.
+
+## Requisitos funcionales
+
+### 1. Menú interactivo
+
+```
+=== VALIDADOR DE TARJETAS ===
+1. Validar una tarjeta
+2. Validar desde archivo
+3. Generar número válido
+4. Estadísticas
+5. Salir
+```
+
+### 2. Validar una tarjeta
+
+Solicitar al usuario un número de tarjeta y mostrar:
+
+```
+Número: 4532015112830366
+Marca: Visa
+Estado: ✅ VÁLIDA
+```
+
+```
+Número: 4532015112830367
+Marca: Desconocida
+Estado: ❌ INVÁLIDA
+```
+
+### 3. Validar desde archivo
+
+Leer un archivo de texto con un número de tarjeta por línea y procesar todas. Mostrar resumen al final.
+
+### 4. Generar número válido
+
+Generar un número aleatorio que pase la validación de Luhn y mostrar la marca correspondiente.
+
+### 5. Estadísticas
+
+Mostrar totales: cuántas válidas, cuántas inválidas, desglose por marca.
+
+## Algoritmo de Luhn
+
+1. Invertir el número
+2. Recorrer de izquierda a derecha (del original invertido):
+   - Cada dígito en posición par (1-indexed del invertido) se duplica
+   - Si el duplicado es >= 10, se suman sus dígitos (ej: 16 → 1+6=7)
+3. Sumar todos los dígitos (originales + procesados)
+4. Si la suma total es múltiplo de 10, el número es VÁLIDO
+
+## Identificación de marcas
+
+| Marca | Prefijo | Dígitos |
+|---|---|---|
+| Visa | 4 | 13 o 16 |
+| Mastercard | 51-55 | 16 |
+| American Express | 34 o 37 | 15 |
+| Discover | 6011, 622126-622925, 644-649, 65 | 16-19 |
+
+## Requisitos técnicos
+
+- Método `bool ValidarTarjeta(string numero)` que implemente Luhn
+- Método `string IdentificarMarca(string numero)` que retorne la marca
+- Método `void ValidarDesdeArchivo(string ruta)`
+- Método `string GenerarNumeroValido()` que genere un número que pase Luhn
+- Menú con ciclo `do-while`
+- Manejo de excepciones con `try-catch`
+- Al menos 5 métodos con responsabilidad única
+
+## Criterios de evaluación
+
+| Criterio | Peso |
+|---|---|
+| Algoritmo Luhn correcto | 30% |
+| Identificación de marcas | 15% |
+| Lectura desde archivo | 10% |
+| Generación de número válido | 10% |
+| Estadísticas | 10% |
+| Estructura y modularización | 10% |
+| Manejo de errores | 10% |
+| Legibilidad y comentarios | 5% |
+
+## Sugerencias
+
+- Usar `char.GetNumericValue()` para convertir un char a número
+- Recordar que `%` da el residuo de una división
+- Investigar cómo leer archivos con `File.ReadAllLines()`
+- Probar con números de tarjeta reales de prueba (Visa: 4532015112830366, Mastercard: 5555555555554444)
+
+## Formato de entrega
+
+Carpeta `apellido-nombre/` dentro de `ejercicio-01-luhn/` con:
+- Proyecto completo (`.csproj` + `Program.cs`)
+- Captura de pantalla de la terminal mostrando:
+  - Una tarjeta válida
+  - Una tarjeta inválida
+  - El menú principal
